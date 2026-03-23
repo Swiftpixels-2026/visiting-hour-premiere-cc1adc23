@@ -114,13 +114,22 @@ const HeroSection = () => {
           <span className="w-1 h-1 rounded-full bg-primary" />
           <span>Curated</span>
         </motion.div>
-      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
+        {/* Countdown */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.1 }}
+          className="mt-12 flex items-center justify-center gap-6 md:gap-10"
+        >
+          <CountdownUnit value={days} label="Days" />
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <CountdownUnit value={hours} label="Hours" />
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <CountdownUnit value={minutes} label="Min" />
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <CountdownUnit value={seconds} label="Sec" />
+        </motion.div>
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
