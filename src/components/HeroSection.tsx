@@ -1,7 +1,41 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import heroBg from "@/assets/hero-bg.jpg";
 
+const useCountdown = (targetDate: Date) => {
+  const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(targetDate));
+  useEffect(() => {
+    const id = setInterval(() => setTimeLeft(calculateTimeLeft(targetDate)), 1000);
+    return () => clearInterval(id);
+  }, [targetDate]);
+  return timeLeft;
+};
+
+function calculateTimeLeft(target: Date) {
+  const diff = Math.max(0, target.getTime() - Date.now());
+  return {
+    days: Math.floor(diff / 86400000),
+    hours: Math.floor((diff % 86400000) / 3600000),
+    minutes: Math.floor((diff % 3600000) / 60000),
+    seconds: Math.floor((diff % 60000) / 1000),
+  };
+}
+
+const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
+  <div className="flex flex-col items-center">
+    <span className="font-display text-3xl md:text-5xl font-light gold-gradient-text tabular-nums">
+      {String(value).padStart(2, "0")}
+    </span>
+    <span className="font-body text-[9px] tracking-[0.4em] uppercase text-muted-foreground mt-1">
+      {label}
+    </span>
+  </div>
+);
+
 const HeroSection = () => {
+  const premiereDate = new Date("2026-04-25T16:00:00+01:00");
+  const { days, hours, minutes, seconds } = useCountdown(premiereDate);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
@@ -80,6 +114,22 @@ const HeroSection = () => {
           <span>Private</span>
           <span className="w-1 h-1 rounded-full bg-primary" />
           <span>Curated</span>
+        </motion.div>
+
+        {/* Countdown */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.1 }}
+          className="mt-12 flex items-center justify-center gap-6 md:gap-10"
+        >
+          <CountdownUnit value={days} label="Days" />
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <CountdownUnit value={hours} label="Hours" />
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <CountdownUnit value={minutes} label="Min" />
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <CountdownUnit value={seconds} label="Sec" />
         </motion.div>
       </div>
 
