@@ -130,6 +130,13 @@ const HeroSection = () => {
           <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
           <CountdownUnit value={seconds} label="Sec" />
         </motion.div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
