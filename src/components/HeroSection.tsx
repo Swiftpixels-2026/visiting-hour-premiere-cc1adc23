@@ -95,6 +95,20 @@ const HeroSection = () => {
           className="divider-gold w-48 mx-auto mt-10 mb-10"
         />
 
+        {/* Watch Trailer */}
+        <motion.button
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+          onClick={() => setTrailerOpen(true)}
+          className="group flex items-center gap-3 mx-auto font-body text-xs tracking-[0.3em] uppercase text-primary hover:text-cream transition-colors duration-300"
+        >
+          <span className="w-10 h-10 rounded-full border border-primary/40 group-hover:border-cream/60 flex items-center justify-center transition-colors duration-300">
+            <Play className="w-4 h-4 ml-0.5" />
+          </span>
+          Watch Trailer
+        </motion.button>
+
         {/* Event details */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
