@@ -2,6 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import PanelSection from "@/components/PanelSection";
+import RSVPSection from "@/components/RSVPSection";
 import ClosingSection from "@/components/ClosingSection";
 
 const Index = () => {
@@ -11,6 +12,7 @@ const Index = () => {
       <AboutSection />
       <ExperienceSection />
       <PanelSection />
+      <RSVPSection />
       <ClosingSection />
     </main>
   );
