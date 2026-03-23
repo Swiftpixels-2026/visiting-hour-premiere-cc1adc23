@@ -21,8 +21,19 @@ function calculateTimeLeft(target: Date) {
   };
 }
 
+const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
+  <div className="flex flex-col items-center">
+    <span className="font-display text-3xl md:text-5xl font-light gold-gradient-text tabular-nums">
+      {String(value).padStart(2, "0")}
+    </span>
+    <span className="font-body text-[9px] tracking-[0.4em] uppercase text-muted-foreground mt-1">
+      {label}
+    </span>
+  </div>
+);
+
+const HeroSection = () => {
   const premiereDate = new Date("2026-04-25T16:00:00+01:00");
-  const { days, hours, minutes, seconds } = useCountdown(premiereDate);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
