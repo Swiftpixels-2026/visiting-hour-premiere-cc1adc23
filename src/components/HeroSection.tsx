@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Play } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const useCountdown = (targetDate: Date) => {
@@ -35,6 +37,7 @@ const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
 const HeroSection = () => {
   const premiereDate = new Date("2026-04-25T16:00:00+01:00");
   const { days, hours, minutes, seconds } = useCountdown(premiereDate);
+  const [trailerOpen, setTrailerOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -92,6 +95,20 @@ const HeroSection = () => {
           className="divider-gold w-48 mx-auto mt-10 mb-10"
         />
 
+        {/* Watch Trailer */}
+        <motion.button
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
+          onClick={() => setTrailerOpen(true)}
+          className="group flex items-center gap-3 mx-auto font-body text-xs tracking-[0.3em] uppercase text-primary hover:text-cream transition-colors duration-300"
+        >
+          <span className="w-10 h-10 rounded-full border border-primary/40 group-hover:border-cream/60 flex items-center justify-center transition-colors duration-300">
+            <Play className="w-4 h-4 ml-0.5" />
+          </span>
+          Watch Trailer
+        </motion.button>
+
         {/* Event details */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -146,6 +163,19 @@ const HeroSection = () => {
           className="w-px h-12 bg-gradient-to-b from-primary/60 to-transparent"
         />
       </motion.div>
+
+      {/* Trailer modal */}
+      <Dialog open={trailerOpen} onOpenChange={setTrailerOpen}>
+        <DialogContent className="max-w-4xl bg-background/95 border-border p-2 sm:p-4">
+          <DialogTitle className="sr-only">Visiting Hour – Trailer</DialogTitle>
+          <video
+            src="/visiting-hour-trailer.mp4"
+            controls
+            autoPlay
+            className="w-full rounded aspect-video"
+          />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
