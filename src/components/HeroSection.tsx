@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Play } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const useCountdown = (targetDate: Date) => {
