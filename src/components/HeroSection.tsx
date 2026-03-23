@@ -163,6 +163,19 @@ const HeroSection = () => {
           className="w-px h-12 bg-gradient-to-b from-primary/60 to-transparent"
         />
       </motion.div>
+
+      {/* Trailer modal */}
+      <Dialog open={trailerOpen} onOpenChange={setTrailerOpen}>
+        <DialogContent className="max-w-4xl bg-background/95 border-border p-2 sm:p-4">
+          <DialogTitle className="sr-only">Visiting Hour – Trailer</DialogTitle>
+          <video
+            src="/visiting-hour-trailer.mp4"
+            controls
+            autoPlay
+            className="w-full rounded aspect-video"
+          />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
