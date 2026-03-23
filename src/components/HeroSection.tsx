@@ -21,7 +21,9 @@ function calculateTimeLeft(target: Date) {
   };
 }
 
-const HeroSection = () => {
+  const premiereDate = new Date("2026-04-25T16:00:00+01:00");
+  const { days, hours, minutes, seconds } = useCountdown(premiereDate);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
