@@ -1,4 +1,9 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -14,6 +19,93 @@ const tiers = [
   { label: "Gold Supporter", amount: "₦2,000,000" },
   { label: "Silver Supporter", amount: "₦1,000,000" },
 ];
+
+const SupportForm = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    amount: "",
+    message: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.amount.trim()) {
+      toast({ title: "Please fill in all required fields", variant: "destructive" });
+      return;
+    }
+    setSubmitting(true);
+    setTimeout(() => {
+      toast({ title: "Thank you!", description: "We've received your support inquiry and will be in touch soon." });
+      setFormData({ name: "", email: "", amount: "", message: "" });
+      setSubmitting(false);
+    }, 1000);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-5">
+      <div>
+        <label className="font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-2 block">
+          Full Name *
+        </label>
+        <Input
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          placeholder="Your full name"
+          maxLength={100}
+          className="bg-background/50 border-primary/20 text-cream placeholder:text-muted-foreground/50 focus:border-primary"
+        />
+      </div>
+      <div>
+        <label className="font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-2 block">
+          Email Address *
+        </label>
+        <Input
+          type="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          placeholder="your@email.com"
+          maxLength={255}
+          className="bg-background/50 border-primary/20 text-cream placeholder:text-muted-foreground/50 focus:border-primary"
+        />
+      </div>
+      <div>
+        <label className="font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-2 block">
+          Support Amount (₦) *
+        </label>
+        <Input
+          value={formData.amount}
+          onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+          placeholder="e.g. 1,000,000"
+          maxLength={50}
+          className="bg-background/50 border-primary/20 text-cream placeholder:text-muted-foreground/50 focus:border-primary"
+        />
+      </div>
+      <div>
+        <label className="font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-2 block">
+          Message (Optional)
+        </label>
+        <Textarea
+          value={formData.message}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          placeholder="Any additional message..."
+          maxLength={1000}
+          rows={4}
+          className="bg-background/50 border-primary/20 text-cream placeholder:text-muted-foreground/50 resize-none"
+        />
+      </div>
+      <Button
+        type="submit"
+        disabled={submitting}
+        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-body text-xs tracking-[0.3em] uppercase py-3 rounded transition-colors duration-300"
+      >
+        {submitting ? "Submitting..." : "Submit Support Inquiry"}
+      </Button>
+    </form>
+  );
+};
 
 const SupportSection = () => {
   return (
@@ -161,6 +253,25 @@ const SupportSection = () => {
             </p>
           </motion.div>
         </div>
+
+        {/* Contact / Support Form */}
+        <motion.div
+          variants={fadeUp}
+          custom={8}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <div className="divider-gold w-24 mx-auto mb-8" />
+          <h3 className="font-display text-2xl text-cream text-center mb-4">
+            Get In Touch
+          </h3>
+          <p className="font-body text-sm text-muted-foreground text-center mb-10 max-w-lg mx-auto">
+            Interested in supporting or partnering with us? Fill out the form below and we'll be in touch.
+          </p>
+          <SupportForm />
+        </motion.div>
       </div>
     </section>
   );
