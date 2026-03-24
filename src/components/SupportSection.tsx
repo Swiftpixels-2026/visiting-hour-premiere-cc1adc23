@@ -1,0 +1,169 @@
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, delay: i * 0.15 },
+  }),
+};
+
+const tiers = [
+  { label: "Platinum Supporter", amount: "₦5,000,000" },
+  { label: "Gold Supporter", amount: "₦2,000,000" },
+  { label: "Silver Supporter", amount: "₦1,000,000" },
+];
+
+const SupportSection = () => {
+  return (
+    <section className="py-32 px-6 bg-card">
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          variants={fadeUp}
+          custom={0}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <p className="font-body text-xs tracking-[0.4em] uppercase text-primary mb-4">
+            Be Part of Something Meaningful
+          </p>
+          <h2 className="font-display text-4xl md:text-5xl font-light text-cream mb-4">
+            Support the Movement
+          </h2>
+          <div className="divider-gold w-24 mx-auto mt-6" />
+        </motion.div>
+
+        <div className="space-y-6 text-center">
+          <motion.p
+            variants={fadeUp}
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="font-body text-sm md:text-base text-muted-foreground leading-relaxed"
+          >
+            <span className="italic text-cream">Visiting Hour</span> was created
+            to open up an honest conversation about grief — an experience many
+            people carry silently. Loss is universal, yet discussions around grief
+            are often avoided or pushed aside. Through this film and the
+            conversations it inspires, we aim to create a safe and compassionate
+            space where people can reflect, share, and heal.
+          </motion.p>
+
+          <motion.p
+            variants={fadeUp}
+            custom={2}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="font-body text-sm md:text-base text-muted-foreground leading-relaxed"
+          >
+            Our goal is to take{" "}
+            <span className="italic text-cream">Visiting Hour</span> beyond a
+            single screening. We plan to host film screenings and guided panel
+            discussions on grief in selected cities across Nigeria and other
+            African countries, bringing together mental health professionals,
+            storytellers, and communities to talk openly about loss, memory, and
+            healing.
+          </motion.p>
+
+          <motion.p
+            variants={fadeUp}
+            custom={3}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="font-body text-sm md:text-base text-muted-foreground leading-relaxed"
+          >
+            To make this movement possible, we are seeking partners and supporters
+            who believe in the importance of mental health conversations and the
+            power of storytelling to create change.
+          </motion.p>
+        </div>
+
+        {/* Sponsorship Tiers */}
+        <motion.div
+          variants={fadeUp}
+          custom={4}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="font-display text-2xl text-cream text-center mb-10">
+            Sponsorship Support
+          </h3>
+          <div className="grid gap-4 md:grid-cols-3">
+            {tiers.map((tier) => (
+              <div
+                key={tier.label}
+                className="border border-primary/20 rounded-lg p-6 text-center hover:border-primary/50 transition-colors duration-300"
+              >
+                <p className="font-body text-[10px] tracking-[0.4em] uppercase text-primary mb-2">
+                  {tier.label}
+                </p>
+                <p className="font-display text-2xl font-light gold-gradient-text">
+                  {tier.amount}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Recognition & closing */}
+        <div className="mt-16 space-y-6 text-center">
+          <motion.p
+            variants={fadeUp}
+            custom={5}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="font-body text-sm md:text-base text-muted-foreground leading-relaxed"
+          >
+            Supporters and partners will receive recognition through brand
+            placement on event banners, promotional materials, and other official
+            communications related to the screenings and discussions.
+          </motion.p>
+
+          <motion.p
+            variants={fadeUp}
+            custom={6}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="font-body text-sm md:text-base text-muted-foreground leading-relaxed italic"
+          >
+            Contributions of any amount are also deeply appreciated and will help
+            bring this important initiative to more communities.
+          </motion.p>
+
+          <motion.div
+            variants={fadeUp}
+            custom={7}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="pt-8"
+          >
+            <div className="divider-gold w-16 mx-auto mb-8" />
+            <p className="font-display text-xl md:text-2xl font-light text-cream leading-relaxed">
+              Together, we can use film and conversation to help people understand
+              that{" "}
+              <span className="gold-gradient-text">
+                grief deserves space, compassion, and dialogue.
+              </span>
+            </p>
+            <p className="font-body text-sm tracking-widest uppercase text-primary mt-6">
+              Join us in supporting this movement.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SupportSection;
