@@ -79,7 +79,7 @@ const ClosingSection = () => {
           className="mt-20"
         >
           <p className="font-body text-[10px] tracking-[0.5em] uppercase text-muted-foreground">
-            Bush Lamp Films
+            Bushlamp Studios
           </p>
         </motion.div>
       </div>

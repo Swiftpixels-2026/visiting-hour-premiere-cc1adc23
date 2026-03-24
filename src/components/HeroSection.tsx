@@ -59,7 +59,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-body text-xs tracking-[0.4em] uppercase text-muted-foreground mb-8"
         >
-          Bush Lamp Films presents
+          Bushlamp Studios presents
         </motion.p>
 
         <motion.div
