@@ -95,30 +95,28 @@ const HeroSection = () => {
           className="divider-gold w-48 mx-auto mt-10 mb-10"
         />
 
-        {/* Watch Trailer */}
-        <motion.button
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          onClick={() => setTrailerOpen(true)}
-          className="group flex items-center gap-3 mx-auto font-body text-xs tracking-[0.3em] uppercase text-primary hover:text-cream transition-colors duration-300"
-        >
-          <span className="w-10 h-10 rounded-full border border-primary/40 group-hover:border-cream/60 flex items-center justify-center transition-colors duration-300">
-            <Play className="w-4 h-4 ml-0.5" />
-          </span>
-          Watch Trailer
-        </motion.button>
-
         {/* Event details */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
+          transition={{ duration: 0.8, delay: 1.4 }}
           className="space-y-2 font-body text-sm tracking-widest uppercase text-muted-foreground"
         >
           <p>Sunday, 25th April 2026 &nbsp;•&nbsp; 4:00 PM</p>
           <p className="text-cream">Victor Uwaifo Creative Hub</p>
         </motion.div>
+
+        {/* Watch Trailer */}
+        <motion.button
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
+          onClick={() => setTrailerOpen(true)}
+          className="mt-8 mx-auto flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-body text-xs tracking-[0.3em] uppercase px-8 py-3 rounded transition-colors duration-300"
+        >
+          <Play className="w-4 h-4" />
+          Watch Trailer
+        </motion.button>
 
         <motion.div
           initial={{ opacity: 0 }}
