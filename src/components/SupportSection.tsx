@@ -166,6 +166,25 @@ const SupportSection = () => {
             </p>
           </motion.div>
         </div>
+
+        {/* Contact / Support Form */}
+        <motion.div
+          variants={fadeUp}
+          custom={8}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <div className="divider-gold w-24 mx-auto mb-8" />
+          <h3 className="font-display text-2xl text-cream text-center mb-4">
+            Get In Touch
+          </h3>
+          <p className="font-body text-sm text-muted-foreground text-center mb-10 max-w-lg mx-auto">
+            Interested in supporting or partnering with us? Fill out the form below and we'll be in touch.
+          </p>
+          <SupportForm />
+        </motion.div>
       </div>
     </section>
   );
