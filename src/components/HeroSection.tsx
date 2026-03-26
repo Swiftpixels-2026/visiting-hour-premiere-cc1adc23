@@ -35,7 +35,7 @@ const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
 );
 
 const HeroSection = () => {
-  const premiereDate = new Date("2026-04-25T16:00:00+01:00");
+  const premiereDate = new Date("2026-04-26T16:00:00+01:00");
   const { days, hours, minutes, seconds } = useCountdown(premiereDate);
   const [trailerOpen, setTrailerOpen] = useState(false);
 
@@ -105,7 +105,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 1.4 }}
           className="space-y-2 font-body text-sm tracking-widest uppercase text-muted-foreground"
         >
-          <p>Sunday, 25th April 2026 &nbsp;•&nbsp; 4:00 PM</p>
+          <p>Sunday, 26th April 2026 &nbsp;•&nbsp; 4:00 PM</p>
           <p className="text-cream">Victor Uwaifo Creative Hub</p>
         </motion.div>
 
