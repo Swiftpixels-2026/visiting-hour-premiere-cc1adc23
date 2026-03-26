@@ -265,14 +265,23 @@ const SupportSection = () => {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <div className="divider-gold w-24 mx-auto mb-8" />
-          <h3 className="font-display text-2xl text-cream text-center mb-4">
-            Get In Touch
-          </h3>
-          <p className="font-body text-sm text-muted-foreground text-center mb-10 max-w-lg mx-auto">
-            Interested in supporting or partnering with us? Fill out the form below and we'll be in touch.
-          </p>
-          <SupportForm />
+          <Collapsible>
+            <div className="divider-gold w-24 mx-auto mb-8" />
+            <CollapsibleTrigger className="w-full group cursor-pointer">
+              <div className="flex items-center justify-center gap-3">
+                <h3 className="font-display text-2xl text-cream">
+                  Get In Touch
+                </h3>
+                <ChevronDown className="w-5 h-5 text-primary transition-transform duration-300 group-data-[state=open]:rotate-180" />
+              </div>
+              <p className="font-body text-sm text-muted-foreground text-center mt-4 max-w-lg mx-auto">
+                Interested in supporting or partnering with us? Tap to fill out the form.
+              </p>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="mt-10">
+              <SupportForm />
+            </CollapsibleContent>
+          </Collapsible>
         </motion.div>
       </div>
     </section>
