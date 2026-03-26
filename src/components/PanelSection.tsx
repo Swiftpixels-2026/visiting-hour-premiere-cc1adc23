@@ -175,7 +175,7 @@ const PanelSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="font-display text-lg italic text-muted-foreground mt-12 text-center"
+          className="font-display text-lg italic font-semibold text-muted-foreground mt-12 text-center"
         >
           This conversation is designed to extend the experience of Visiting Hour beyond the screen —
           encouraging deeper reflection on love, loss, and the enduring connections that remain even
