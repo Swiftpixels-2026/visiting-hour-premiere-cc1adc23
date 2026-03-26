@@ -159,10 +159,10 @@ const PanelSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="p-8 rounded border border-gold bg-card text-center"
+          className="p-8 rounded border border-primary/40 bg-primary text-center"
         >
-          <h3 className="font-display text-2xl text-cream mb-4">Guests Will Have the Opportunity To</h3>
-          <div className="space-y-2 font-body text-sm text-muted-foreground">
+          <h3 className="font-display text-2xl text-primary-foreground mb-4">Guests Will Have the Opportunity To</h3>
+          <div className="space-y-2 font-body text-sm text-primary-foreground/80">
             <p>Listen to expert insights</p>
             <p>Reflect on the film's themes</p>
             <p>Participate in a brief audience Q&A</p>
