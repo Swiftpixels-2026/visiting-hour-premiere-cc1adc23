@@ -236,6 +236,25 @@ const SupportSection = () => {
 
           <motion.div
             variants={fadeUp}
+            custom={6.5}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-8"
+          >
+            <div className="border border-primary/30 rounded-lg p-6 text-center max-w-sm mx-auto bg-background/30">
+              <p className="font-body text-[10px] tracking-[0.4em] uppercase text-primary mb-3">
+                Bank Details
+              </p>
+              <p className="font-display text-lg text-cream">Wema Bank</p>
+              <p className="font-display text-2xl font-light gold-gradient-text mt-1 tracking-wider">
+                0127512202
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
             custom={7}
             initial="hidden"
             whileInView="visible"
