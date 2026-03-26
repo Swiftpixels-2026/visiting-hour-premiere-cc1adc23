@@ -91,7 +91,7 @@ const RSVPSection = () => {
             </h3>
             <p className="font-body text-sm text-muted-foreground">
               We look forward to welcoming you on{" "}
-              <span className="text-cream">Sunday, 25th April 2026</span>.
+              <span className="text-cream">Sunday, 26th April 2026</span>.
             </p>
           </motion.div>
         ) : (
