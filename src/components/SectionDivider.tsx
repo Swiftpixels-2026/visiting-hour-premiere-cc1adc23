@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const SectionDivider = () => (
   <div className="relative py-16 bg-background flex flex-col items-center justify-center gap-2">
-    <div className="flex items-center justify-center w-full max-w-md">
+    <div className="flex items-center justify-center w-full max-w-3xl px-4">
       {/* Left decorative dots */}
       <motion.div
         initial={{ opacity: 0 }}
