@@ -72,7 +72,7 @@ const AboutSection = () => {
             As their reunion unfolds, an even deeper truth emerges: while he has never let go, she
             discovers that many of those she once cherished have long forgotten her.
           </p>
-          <p className="font-display text-lg italic text-muted-foreground mt-8">
+          <p className="font-display text-lg italic font-semibold text-muted-foreground mt-8">
             Visiting Hour is a deeply emotional exploration of grief, remembrance, and the fragile
             permanence of human connection.
           </p>
