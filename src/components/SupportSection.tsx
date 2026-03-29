@@ -250,6 +250,9 @@ const SupportSection = () => {
               <p className="font-display text-2xl font-light gold-gradient-text mt-1 tracking-wider">
                 0127512202
               </p>
+              <p className="font-body text-sm text-muted-foreground mt-2">
+                Bushlamp Studios
+              </p>
             </div>
           </motion.div>
 
