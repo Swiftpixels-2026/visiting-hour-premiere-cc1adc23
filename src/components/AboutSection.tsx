@@ -63,8 +63,11 @@ const AboutSection = () => {
           viewport={{ once: true }}
           className="space-y-6"
         >
+          <h3 className="font-display text-2xl md:text-3xl font-light text-cream mb-6">
+            Synopsis
+          </h3>
           <p className="font-body text-sm md:text-base leading-relaxed text-secondary-foreground">
-            <span className="text-primary font-medium">Synopsis</span> — Given one hour to reunite
+            Given one hour to reunite
             with his late wife, Novena, in the afterlife — at the cost of one year of his life on
             earth — a grieving man is forced to confront love, memory, and the cruel erosion of time.
           </p>
