@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import filmmakerPortrait from "@/assets/filmmaker-portrait.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -28,6 +29,26 @@ const FilmmakerSection = () => {
             About the Filmmaker
           </h2>
           <div className="divider-gold w-24 mx-auto mt-6" />
+        </motion.div>
+
+        <motion.div
+          variants={fadeUp}
+          custom={0.5}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex justify-center mb-12"
+        >
+          <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-primary/30 shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+            <img
+              src={filmmakerPortrait}
+              alt="'Gbovo Eriamiantoe - Filmmaker"
+              loading="lazy"
+              width={640}
+              height={800}
+              className="w-full h-full object-cover object-top"
+            />
+          </div>
         </motion.div>
 
         <div className="space-y-6 text-center">
