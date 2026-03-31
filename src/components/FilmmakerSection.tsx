@@ -39,14 +39,12 @@ const FilmmakerSection = () => {
           viewport={{ once: true }}
           className="flex justify-center mb-12"
         >
-          <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-primary/30 shadow-[0_0_30px_rgba(212,175,55,0.15)]">
+          <div className="max-w-md mx-auto rounded-2xl overflow-hidden border border-primary/20 shadow-[0_0_40px_rgba(212,175,55,0.1)]">
             <img
               src={filmmakerPortrait}
               alt="'Gbovo Eriamiantoe - Filmmaker"
               loading="lazy"
-              width={640}
-              height={800}
-              className="w-full h-full object-cover object-top"
+              className="w-full h-auto object-cover"
             />
           </div>
         </motion.div>
