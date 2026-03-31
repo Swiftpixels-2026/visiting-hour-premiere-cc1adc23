@@ -9,12 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { Check } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const rsvpSchema = z.object({
-  name: z.string().trim().min(1, "Name is required").max(100),
+  full_name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Please enter a valid email").max(255),
-  phone: z.string().trim().min(1, "Phone number is required").max(30),
-  guests: z.string().optional(),
+  phone_number: z.string().trim().min(1, "Phone number is required").max(30),
+  additional_guests: z.string().optional(),
   message: z.string().trim().max(500).optional(),
 });
 
@@ -31,25 +32,52 @@ const fadeUp = {
 
 const RSVPSection = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<RSVPFormValues>({
     resolver: zodResolver(rsvpSchema),
     defaultValues: {
-      name: "",
+      full_name: "",
       email: "",
-      phone: "",
-      guests: "",
+      phone_number: "",
+      additional_guests: "",
       message: "",
     },
   });
 
-  const onSubmit = (data: RSVPFormValues) => {
-    console.log("RSVP submitted:", { name: data.name, guests: data.guests });
-    setSubmitted(true);
-    toast({
-      title: "RSVP Confirmed",
-      description: "Thank you. We look forward to welcoming you.",
-    });
+  const onSubmit = async (data: RSVPFormValues) => {
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.from("attendance").insert([
+        {
+          full_name: data.full_name,
+          email: data.email,
+          phone_number: data.phone_number,
+          additional_guests: data.additional_guests ? parseInt(data.additional_guests) : 0,
+          message: data.message,
+        },
+      ]);
+
+      if (error) {
+        throw error;
+      }
+
+      console.log("RSVP submitted to Supabase:", data);
+      setSubmitted(true);
+      toast({
+        title: "RSVP Confirmed",
+        description: "Thank you. We look forward to welcoming you.",
+      });
+    } catch (error: unknown) {
+      console.error("Error submitting RSVP:", error instanceof Error ? error.message : String(error));
+      toast({
+        variant: "destructive",
+        title: "Submission Error",
+        description: "There was a problem confirming your attendance. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -106,7 +134,7 @@ const RSVPSection = () => {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="full_name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="font-body text-xs tracking-widest uppercase text-muted-foreground">
@@ -147,7 +175,7 @@ const RSVPSection = () => {
 
                 <FormField
                   control={form.control}
-                  name="phone"
+                  name="phone_number"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="font-body text-xs tracking-widest uppercase text-muted-foreground">
@@ -168,7 +196,7 @@ const RSVPSection = () => {
 
                 <FormField
                   control={form.control}
-                  name="guests"
+                  name="additional_guests"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="font-body text-xs tracking-widest uppercase text-muted-foreground">
@@ -215,9 +243,10 @@ const RSVPSection = () => {
                 <div className="pt-4">
                   <Button
                     type="submit"
+                    disabled={isSubmitting}
                     className="w-full font-body text-xs tracking-[0.3em] uppercase h-12 bg-primary text-primary-foreground hover:bg-primary/90"
                   >
-                    Confirm Attendance
+                    {isSubmitting ? "Confirming..." : "Confirm Attendance"}
                   </Button>
                 </div>
               </form>
