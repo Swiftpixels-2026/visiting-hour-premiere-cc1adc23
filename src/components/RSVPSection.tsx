@@ -46,6 +46,15 @@ const RSVPSection = () => {
   });
 
   const onSubmit = async (data: RSVPFormValues) => {
+    if (!supabase) {
+      toast({
+        variant: "destructive",
+        title: "RSVP unavailable",
+        description: "The RSVP form is temporarily unavailable until the backend is configured.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const { error } = await supabase.from("attendance").insert([
@@ -53,7 +62,7 @@ const RSVPSection = () => {
           full_name: data.full_name,
           email: data.email,
           phone_number: data.phone_number,
-          additional_guests: data.additional_guests ? parseInt(data.additional_guests) : 0,
+          additional_guests: data.additional_guests ? parseInt(data.additional_guests, 10) : 0,
           message: data.message,
         },
       ]);
@@ -62,7 +71,7 @@ const RSVPSection = () => {
         throw error;
       }
 
-      console.log("RSVP submitted to Supabase:", data);
+      console.log("RSVP submitted:", data);
       setSubmitted(true);
       toast({
         title: "RSVP Confirmed",
