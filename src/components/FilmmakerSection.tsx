@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import filmmakerPortrait from "@/assets/filmmaker-portrait.jpg";
+import filmmakerPortrait from "@/assets/man.jpeg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
