@@ -68,8 +68,8 @@ const AboutSection = () => {
           </h3>
           <p className="font-body text-sm md:text-base leading-relaxed text-secondary-foreground">
             Given one hour to reunite
-            with his late wife, Novena, in the afterlife — at the cost of one year of his life on
-            earth — a grieving man is forced to confront love, memory, and the cruel erosion of time.
+            with his late wife, Novena, in the afterlife, at the cost of one year of his life on
+            earth, a grieving man is forced to confront love, memory, and the cruel erosion of time.
           </p>
           <p className="font-body text-sm md:text-base leading-relaxed text-secondary-foreground">
             As their reunion unfolds, an even deeper truth emerges: while he has never let go, she
