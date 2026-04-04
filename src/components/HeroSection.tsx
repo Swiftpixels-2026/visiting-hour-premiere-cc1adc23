@@ -7,7 +7,10 @@ import heroBg from "@/assets/hero-bg.jpg";
 const useCountdown = (targetDate: Date) => {
   const [timeLeft, setTimeLeft] = useState(() => calculateTimeLeft(targetDate));
   useEffect(() => {
-    const id = setInterval(() => setTimeLeft(calculateTimeLeft(targetDate)), 1000);
+    const id = setInterval(
+      () => setTimeLeft(calculateTimeLeft(targetDate)),
+      1000,
+    );
     return () => clearInterval(id);
   }, [targetDate]);
   return timeLeft;
@@ -40,7 +43,7 @@ const HeroSection = () => {
   const [trailerOpen, setTrailerOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen pt-10 md:pt-20 flex items-center justify-center overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <motion.img
@@ -49,7 +52,12 @@ const HeroSection = () => {
           className="w-full h-full object-cover opacity-50"
           initial={{ scale: 1 }}
           animate={{ scale: 1.15 }}
-          transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+          transition={{
+            duration: 20,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background" />
       </div>
@@ -142,11 +150,17 @@ const HeroSection = () => {
           className="mt-12 flex items-center justify-center gap-6 md:gap-10"
         >
           <CountdownUnit value={days} label="Days" />
-          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">
+            :
+          </span>
           <CountdownUnit value={hours} label="Hours" />
-          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">
+            :
+          </span>
           <CountdownUnit value={minutes} label="Min" />
-          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">:</span>
+          <span className="text-primary/30 font-light text-2xl md:text-4xl -mt-4">
+            :
+          </span>
           <CountdownUnit value={seconds} label="Sec" />
         </motion.div>
       </div>

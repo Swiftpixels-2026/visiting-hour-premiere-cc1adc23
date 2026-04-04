@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -32,18 +33,41 @@ const SupportForm = () => {
   });
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.email.trim() || !formData.amount.trim()) {
       toast({ title: "Please fill in all required fields", variant: "destructive" });
       return;
     }
     setSubmitting(true);
-    setTimeout(() => {
+    
+    try {
+      const { error } = await supabase
+        .from("visiting_hour_contact")
+        .insert([
+          {
+            full_name: formData.name,
+            email: formData.email,
+            support_amount: formData.amount,
+            message: formData.message,
+          },
+        ]);
+
+      if (error) throw error;
+
       toast({ title: "Thank you!", description: "We've received your support inquiry and will be in touch soon." });
       setFormData({ name: "", email: "", amount: "", message: "" });
+    } catch (err) {
+      const error = err as Error;
+      console.error("Error submitting support form:", error);
+      toast({
+        title: "Submission Failed",
+        description: error.message || "Failed to submit inquiry. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
