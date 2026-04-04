@@ -4,7 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
@@ -35,34 +39,44 @@ const SupportForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.amount.trim()) {
-      toast({ title: "Please fill in all required fields", variant: "destructive" });
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.amount.trim()
+    ) {
+      toast({
+        title: "Please fill in all required fields",
+        variant: "destructive",
+      });
       return;
     }
     setSubmitting(true);
-    
+
     try {
-      const { error } = await supabase
-        .from("visiting_hour_contact")
-        .insert([
-          {
-            full_name: formData.name,
-            email: formData.email,
-            support_amount: formData.amount,
-            message: formData.message,
-          },
-        ]);
+      const { error } = await supabase.from("visiting_hour_contact").insert([
+        {
+          full_name: formData.name,
+          email: formData.email,
+          support_amount: formData.amount,
+          message: formData.message,
+        },
+      ]);
 
       if (error) throw error;
 
-      toast({ title: "Thank you!", description: "We've received your support inquiry and will be in touch soon." });
+      toast({
+        title: "Thank you!",
+        description:
+          "We've received your support inquiry and will be in touch soon.",
+      });
       setFormData({ name: "", email: "", amount: "", message: "" });
     } catch (err) {
       const error = err as Error;
       console.error("Error submitting support form:", error);
       toast({
         title: "Submission Failed",
-        description: error.message || "Failed to submit inquiry. Please try again.",
+        description:
+          error.message || "Failed to submit inquiry. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -115,7 +129,9 @@ const SupportForm = () => {
         </label>
         <Textarea
           value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, message: e.target.value })
+          }
           placeholder="Any additional message..."
           maxLength={1000}
           rows={4}
@@ -165,8 +181,8 @@ const SupportSection = () => {
           >
             <span className="italic text-cream">Visiting Hour</span> was created
             to open up an honest conversation about grief — an experience many
-            people carry silently. Loss is universal, yet discussions around grief
-            are often avoided or pushed aside. Through this film and the
+            people carry silently. Loss is universal, yet discussions around
+            grief are often avoided or pushed aside. Through this film and the
             conversations it inspires, we aim to create a safe and compassionate
             space where people can reflect, share, and heal.
           </motion.p>
@@ -196,9 +212,9 @@ const SupportSection = () => {
             viewport={{ once: true }}
             className="font-body text-sm md:text-base text-muted-foreground leading-relaxed"
           >
-            To make this movement possible, we are seeking partners and supporters
-            who believe in the importance of mental health conversations and the
-            power of storytelling to create change.
+            To make this movement possible, we are seeking partners and
+            supporters who believe in the importance of mental health
+            conversations and the power of storytelling to create change.
           </motion.p>
         </div>
 
@@ -242,8 +258,8 @@ const SupportSection = () => {
             className="font-body text-sm md:text-base text-muted-foreground leading-relaxed"
           >
             Supporters and partners will receive recognition through brand
-            placement on event banners, promotional materials, and other official
-            communications related to the screenings and discussions.
+            placement on event banners, promotional materials, and other
+            official communications related to the screenings and discussions.
           </motion.p>
 
           <motion.p
@@ -254,8 +270,8 @@ const SupportSection = () => {
             viewport={{ once: true }}
             className="font-body text-sm md:text-base text-muted-foreground leading-relaxed italic"
           >
-            Contributions of any amount are also deeply appreciated and will help
-            bring this important initiative to more communities.
+            Contributions of any amount are also deeply appreciated and will
+            help bring this important initiative to more communities.
           </motion.p>
 
           <motion.div
@@ -290,8 +306,8 @@ const SupportSection = () => {
           >
             <div className="divider-gold w-16 mx-auto mb-8" />
             <p className="font-display text-xl md:text-2xl font-light text-cream leading-relaxed">
-              Together, we can use film and conversation to help people understand
-              that{" "}
+              Together, we can use film and conversation to help people
+              understand that{" "}
               <span className="gold-gradient-text">
                 grief deserves space, compassion, and dialogue.
               </span>
@@ -321,7 +337,8 @@ const SupportSection = () => {
                 <ChevronDown className="w-5 h-5 text-primary transition-transform duration-300 group-data-[state=open]:rotate-180" />
               </div>
               <p className="font-body text-sm text-muted-foreground text-center mt-4 max-w-lg mx-auto">
-                Interested in supporting or partnering with us? Tap to fill out the form.
+                Interested in supporting or partnering with us? Tap to fill out
+                the form.
               </p>
             </CollapsibleTrigger>
             <CollapsibleContent className="mt-10">

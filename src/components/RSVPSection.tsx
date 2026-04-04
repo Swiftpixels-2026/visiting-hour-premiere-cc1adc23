@@ -3,13 +3,25 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { Check } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import emailJs from "@emailjs/browser";
+
+const serviceId = "service_f79gls8";
+const templateId = "template_4btdstr";
+const publicKey = "Mm4xpaKCtM3P8Ymfa";
 
 const rsvpSchema = z.object({
   full_name: z.string().trim().min(1, "Name is required").max(100),
@@ -45,12 +57,33 @@ const RSVPSection = () => {
     },
   });
 
+  const sendEmail = async (data: RSVPFormValues) => {
+    try {
+      const response = await emailJs.send(
+        serviceId,
+        templateId,
+        {
+          full_name: data.full_name,
+          email: data.email,
+          phone_number: data.phone_number,
+          additional_guests: data.additional_guests || "0",
+          message: data.message || "No message",
+        },
+        publicKey,
+      );
+      console.log("Email sent:", response);
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
+  };
+
   const onSubmit = async (data: RSVPFormValues) => {
     if (!supabase) {
       toast({
         variant: "destructive",
         title: "RSVP unavailable",
-        description: "The RSVP form is temporarily unavailable until the backend is configured.",
+        description:
+          "The RSVP form is temporarily unavailable until the backend is configured.",
       });
       return;
     }
@@ -62,7 +95,9 @@ const RSVPSection = () => {
           full_name: data.full_name,
           email: data.email,
           phone_number: data.phone_number,
-          additional_guests: data.additional_guests ? parseInt(data.additional_guests, 10) : 0,
+          additional_guests: data.additional_guests
+            ? parseInt(data.additional_guests, 10)
+            : 0,
           message: data.message,
         },
       ]);
@@ -71,18 +106,25 @@ const RSVPSection = () => {
         throw error;
       }
 
+      await sendEmail(data);
+
       console.log("RSVP submitted:", data);
+
       setSubmitted(true);
       toast({
         title: "RSVP Confirmed",
         description: "Thank you. We look forward to welcoming you.",
       });
     } catch (error: unknown) {
-      console.error("Error submitting RSVP:", error instanceof Error ? error.message : String(error));
+      console.error(
+        "Error submitting RSVP:",
+        error instanceof Error ? error.message : String(error),
+      );
       toast({
         variant: "destructive",
         title: "Submission Error",
-        description: "There was a problem confirming your attendance. Please try again.",
+        description:
+          "There was a problem confirming your attendance. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -140,7 +182,10 @@ const RSVPSection = () => {
             viewport={{ once: true }}
           >
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
                 <FormField
                   control={form.control}
                   name="full_name"
@@ -210,7 +255,9 @@ const RSVPSection = () => {
                     <FormItem>
                       <FormLabel className="font-body text-xs tracking-widest uppercase text-muted-foreground">
                         Number of Additional Guests{" "}
-                        <span className="normal-case tracking-normal text-muted-foreground/60">(optional)</span>
+                        <span className="normal-case tracking-normal text-muted-foreground/60">
+                          (optional)
+                        </span>
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -234,7 +281,9 @@ const RSVPSection = () => {
                     <FormItem>
                       <FormLabel className="font-body text-xs tracking-widest uppercase text-muted-foreground">
                         Message{" "}
-                        <span className="normal-case tracking-normal text-muted-foreground/60">(optional)</span>
+                        <span className="normal-case tracking-normal text-muted-foreground/60">
+                          (optional)
+                        </span>
                       </FormLabel>
                       <FormControl>
                         <Textarea
