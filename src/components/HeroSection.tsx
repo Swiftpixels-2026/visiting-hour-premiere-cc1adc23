@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Play } from "lucide-react";
+import { Play, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const useCountdown = (targetDate: Date) => {
@@ -41,6 +42,13 @@ const HeroSection = () => {
   const premiereDate = new Date("2026-04-26T16:00:00+01:00");
   const { days, hours, minutes, seconds } = useCountdown(premiereDate);
   const [trailerOpen, setTrailerOpen] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(true);
+
+  useEffect(() => {
+    if (trailerOpen) {
+      setVideoLoading(true);
+    }
+  }, [trailerOpen]);
 
   return (
     <section className="relative min-h-screen pt-10 md:pt-20 flex items-center justify-center overflow-hidden">
@@ -182,13 +190,26 @@ const HeroSection = () => {
       {/* Trailer modal */}
       <Dialog open={trailerOpen} onOpenChange={setTrailerOpen}>
         <DialogContent className="max-w-4xl bg-background/95 border-border p-2 sm:p-4">
-          <DialogTitle className="sr-only">Visiting Hour – Trailer</DialogTitle>
-          <video
-            src="/visiting-hour-trailer.mp4"
-            controls
-            autoPlay
-            className="w-full rounded aspect-video"
-          />
+          <DialogTitle className="sr-only">Visiting Hour - Trailer</DialogTitle>
+          <div className="relative aspect-video">
+            {videoLoading && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-sm rounded-lg z-10">
+                <Loader2 className="w-8 h-8 text-primary animate-spin mb-2" />
+                <p className="font-body text-[10px] tracking-[0.2em] uppercase text-muted-foreground animate-pulse">
+                  Preparing cinematic experience...
+                </p>
+              </div>
+            )}
+            <iframe
+              src="https://drive.google.com/file/d/1RoApZitCSOrifpzD1bwGNrDopFTvSyWr/preview"
+              className={cn(
+                "w-full rounded aspect-video transition-opacity duration-700",
+                videoLoading ? "opacity-0" : "opacity-100",
+              )}
+              allow="autoplay; fullscreen"
+              onLoad={() => setVideoLoading(false)}
+            ></iframe>
+          </div>
         </DialogContent>
       </Dialog>
     </section>
